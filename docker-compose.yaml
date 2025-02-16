@@ -1,22 +1,13 @@
-version: '3'
 services:
   db:
-    build:
-      context: ./docker/postgres
+    image: postgres:10.7-alpine
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - POSTGRES_DB=dejavu
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-    networks:
-      - db_network
-  python:
-    build:
-      context: ./docker/python
-    volumes:
-      - .:/code
+  app:
+    image: YOUR_DEJAVU_IMAGE
     depends_on:
       - db
-    networks:
-      - db_network
-networks:
-  db_network:

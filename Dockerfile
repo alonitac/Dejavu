@@ -6,3 +6,6 @@ RUN apt-get install \
     postgresql postgresql-contrib -y
 RUN pip install numpy scipy matplotlib pydub pyaudio psycopg2
 WORKDIR /code
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+CMD ["python", "consumer.py"]
